@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <!-- Information card -->
+    <div class="chart-card">
+        <!-- Current balance -->
+        <div class="balance-info">
+            <div class="current-balance">Current Balance: {{balance|usd}}</div>
+        </div>
+
+        <!-- Title and income and expenses -->
+        <h2 class="chart-title">Balance Over {{month_year}}</h2>
+        <div class="month-summary">Income: {{income|usd}} | Expenses: {{expenses|usd}}</div>
+
+        <!-- Chart -->
+        <canvas id="balance_chart"></canvas>
+
+        <!-- Link to analysis page -->
+        <a href="/analysis" class="card-footer-link">
+            See more details of your income and expenses
+            <span class="arrow">→</span>
+        </a>
+    </div>      
+
+{% endblock %}

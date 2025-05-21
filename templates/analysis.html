@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="analysis-tab">
+        <!-- SECTION 1: Expenses -->
+        <div class="chart-section">
+            <div class="chart-tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'expenses', 'weeks')">Weeks</button>
+                <button class="tab-btn" onclick="switchTab(this, 'expenses', 'months')">Months</button>
+            </div>
+            <div class="chart-header">
+                <h2>Expenses Overview</h2>
+            </div>
+            <canvas id="expenses_chart_weeks" class="chart-canvas"></canvas>
+            <canvas id="expenses_chart_months" class="chart-canvas hidden"></canvas>
+        </div>
+      
+        <!-- SECTION 2: Income -->
+        <div class="chart-section">
+            <div class="chart-tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'income', 'weeks')">Weeks</button>
+                <button class="tab-btn" onclick="switchTab(this, 'income', 'months')">Months</button>
+            </div>
+            <div class="chart-header">
+                <h2>Income Overview</h2>
+            </div>
+            <canvas id="income_chart_weeks" class="chart-canvas"></canvas>
+            <canvas id="income_chart_months" class="chart-canvas hidden"></canvas>
+        </div>
+      
+        <!-- SECTION 3: Spending Categories -->
+        <div class="chart-section">
+            <div class="chart-tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'categories', 'frequency')">Most Frequent</button>
+                <button class="tab-btn" onclick="switchTab(this, 'categories', 'spending')">Highest Spending</button>
+            </div>
+            <div class="chart-header">
+                <h2>Spending Categories This Month</h2>
+            </div>
+            <canvas id="categories_chart_frequency" class="chart-canvas categories"></canvas>
+            <canvas id="categories_chart_spending" class="chart-canvas hidden categories"></canvas>
+        </div>
+    </div>
+      
+{% endblock %}

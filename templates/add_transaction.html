@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <div class="add-transaction-page">
+    {% if add %}
+            <!-- ADD transaction -->
+            <div class="add-transaction-card">
+                <h2 class="card-title">Add Transaction</h2>
+                
+                <!-- Fill out form -->
+                <form action="/add_transaction" method="post" class="transaction-form" id="add_transaction">
+                    <input type="number" step="0.01" autocomplete="off" name="amount" placeholder="Amount ($)" id="add_transac_amount">
+                    
+                    <select name="type" id="add_transac_type">
+                        <option disabled selected>Type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+            
+                    <select hidden name="category_income" id="add_transac_category_income">
+                        <option selected disabled>Select Category</option>
+                        {% for cat in categories_income %}
+                            <option value={{cat["category_id"]}}>{{cat["category"]}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select hidden name="category_expense" id="add_transac_category_expense">
+                        <option selected disabled>Select Category</option>
+                        {% for cat in categories_expense %}
+                            <option value={{cat["category_id"]}}>{{cat["category"]}}</option>
+                        {% endfor %}
+                    </select>
+            
+                    <input type="date" autocomplete="off" name="date" placeholder="Date of Transaction" id="add_transac_date" value={{today()}}>
+            
+                    <button type="button" id="btn" class="add-btn">Add</button>
+                </form>
+            </div>
+      
+    {% elif edit %}
+        <!-- EDIT transaction -->
+        <div class="add-transaction-card">
+            <h2 class="card-title">Edit Transaction</h2>
+            
+            <!-- Fill out form -->
+            <form action="/edited_transaction" method="post" class="transaction-form" id="add_transaction">
+                <input type="number" step="0.01" autocomplete="off" name="amount" placeholder="Amount ($)" id="add_transac_amount" value={{info["amount"]|abs}}>
+                
+                <select name="type" id="add_transac_type">
+                    <option selected disabled>Type</option>
+                    <option value="income" {% if info["amount"] > 0 %} selected {% endif %}>income</option>
+                    <option value="expense" {% if info["amount"] < 0 %} selected {% endif %}>expense</option>
+                </select>
+
+                <select {% if info["amount"] < 0 %} hidden {% endif %} name="category_income" id="add_transac_category_income">
+                    <option selected disabled>Select Category</option>
+                    {% for cat in categories_income %}
+                        <option value={{cat["category_id"]}} {% if info["category_id"] == cat["category_id"] %} selected {% endif %}>{{cat["category"]}}</option>
+                    {% endfor %}
+                </select>
+
+                <select {% if info["amount"] > 0 %} hidden {% endif %} name="category_expense" id="add_transac_category_expense">
+                    <option selected disabled>Select Category</option>
+                    {% for cat in categories_expense %}
+                        <option value={{cat["category_id"]}} {% if info["category_id"] == cat["category_id"] %} selected {% endif %}>{{cat["category"]}}</option>
+                    {% endfor %}
+                </select>
+        
+                <input type="date" autocomplete="off" name="date" placeholder="Date of Transaction" id="add_transac_date" value={{info["date_transacted"]}}>
+                <input hidden value={{info["transaction_id"]}} name="id">
+        
+                <button type="button" id="btn" class="add-btn">Save</button>
+            </form>
+        </div>
+
+    {% endif %}
+    </div>
+
+{% endblock %}

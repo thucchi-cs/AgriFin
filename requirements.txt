@@ -1,0 +1,6 @@
+flask
+supabase
+waitress
+gunicorn
+flask_session
+werkzeug

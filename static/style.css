@@ -1,0 +1,890 @@
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+  
+.login-left, .login-right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.login-left {
+    background-color: #ffffff;
+}
+  
+.login-left {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+  
+.login-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+  
+.login-card h2 {
+    margin-bottom: 20px;
+}
+  
+.login-card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+  
+.login-card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.login-card button:hover {
+    background-color: #218838;
+}
+  
+.login-right {
+    position: relative;
+    background: url('/static/pattern.jpg') center center / cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    overflow: hidden; /* Ensures the overlay doesn't spill out */
+}
+
+.login-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.568); /* semi-transparent gray */
+    z-index: 0;
+}
+
+/* Make sure the actual content stays above the overlay */
+.branding {
+    position: relative;
+    z-index: 1;
+    width: 700px;
+}
+
+  
+.branding h1 {
+    font-size: 5rem;
+    margin-bottom: 15px;
+}
+  
+.branding p {
+    font-size: 1.75rem;
+    max-width: 500px;
+    margin: auto;
+    font-weight: 50px;
+}
+  
+.register-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+  
+.register-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+  
+.register-text a:hover {
+    text-decoration: underline;
+}
+  
+.register-left {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.register-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.register-card h2 {
+  margin-bottom: 20px;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.register-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-card button:hover {
+  background-color: #0056b3;
+}
+
+.checkbox-container {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  text-align: left;
+}
+
+.checkbox-container label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-text a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* For the left side background */
+.register-card {
+  position: relative;
+  z-index: 1;
+}
+.register-container {
+    display: flex;
+    height: 100vh;
+}
+  
+.register-left {
+    width: 50%;
+    background: url('/static/pattern.jpg') center center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+  
+.register-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.568); /* Overlay */
+    z-index: 0;
+}
+  
+.branding-texts {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+  
+.branding-texts h1 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+  
+.branding-texts p {
+    font-size: 1.75rem;
+    max-width: 500px;
+    margin: auto;
+    font-weight: 50px;
+}
+  
+.register-right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+  
+.register-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    max-height: 95%;
+}
+
+.register-card p {
+    text-align: left;
+    line-height: 0.25;
+    font-size: 0.9rem;
+}
+  
+.register-card h2 {
+    margin-bottom: 20px;
+}
+  
+.register-card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+  
+.register-card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.register-card button:hover {
+    background-color: #0056b3;
+}
+  
+.checkbox-container {
+    margin-left: 0.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    justify-content: flex-start;
+    text-align: left;
+}
+  
+.checkbox-container label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #555;
+}
+  
+  
+.login-text {
+    margin-top: 10px;
+    font-size: 0.9rem !important;
+    color: #555;
+    text-align: center !important;
+}
+  
+.login-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+  
+.login-text a:hover {
+    text-decoration: underline;
+}
+  
+/* General navbar style */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2f2f2f;
+    padding: 1rem 2rem;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+  
+/* Logo */
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+  
+/* Center nav links */
+.nav-center {
+    display: flex;
+    gap: 2rem;
+}
+  
+.nav-link {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+  
+/* Active tab */
+  .nav-link.active {
+    color: #28a745; /* Green */
+}
+  
+/* Underline on hover */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+}
+  
+.nav-link:hover::after {
+    width: 100%;
+}
+  
+.nav-link:hover {
+    color: #28a745;
+}
+  
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropbtn {
+    background-color: #585858;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+  
+.dropbtn:hover {
+    background-color: #4a4a4a;
+}
+  
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #444;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: white;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s ease;
+}
+  
+.dropdown-content a:hover {
+    background-color: #28a745;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+  
+
+.chart-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    max-width: 900px;
+    margin: 2rem auto;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0;
+}
+
+canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+}
+  
+
+.balance-info {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.current-balance {
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: #2e7d32; /* dark green or whatever fits your theme */
+}
+
+.month-summary {
+    font-size: 1rem;
+    color: #666;
+    /* margin-top: 0.25rem; */
+}
+
+.chart-title {
+    font-size: 1.4rem;
+    /* margin-bottom: 1rem; */
+    font-weight: 500;
+    color: #333;
+}
+
+.card-footer-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d1e9d4;
+    color: rgb(73, 73, 73);
+    padding: 1rem 1.25rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+    margin-top: 2rem;   /* Push footer below chart */
+    margin-left: -2rem; /* Remove left padding from .chart-card */
+    margin-right: -2rem;
+}
+
+.card-footer-link .arrow {
+    font-size: 1.75rem; /* ← increase this for a bigger arrow */
+    margin-left: 0.5rem;
+    line-height: 1;
+}  
+
+.card-footer-link:hover {
+    background-color: #8cb392; /* slightly darker on hover */
+    cursor: pointer;
+    color: white;
+}
+
+.analysis-tab {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+  
+.chart-section {
+    position: relative;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    padding-top: 2.5rem; /* room for the tab switcher */
+    margin: 2rem auto;
+    overflow: visible;
+    width: 90%;
+}
+  
+.chart-header {
+    text-align: center;
+    font-size: 2rem; /* Adjust size as needed */
+    font-weight: 600;
+    margin-bottom: 1rem; /* Space below the heading */
+}
+  
+.chart-header h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+  
+.chart-tabs {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 1rem;
+    background: white;
+    padding: 0.2rem 0.75rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.5);
+    z-index: 2;
+}
+  
+.tab-btn {
+    border: none;
+    background: #e0e0e0;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+    font-size: 0.8rem;
+}
+  
+.tab-btn.active {
+    background: #54606d;
+    color: white;
+}
+  
+.chart-canvas {
+    max-width: 80%;
+    height: 300px;
+    margin: auto;
+    margin-bottom: 3rem;
+}
+  
+.hidden {
+    background-color: red;
+    display: none !important;
+}
+
+.categories {
+    max-width: 40%;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 2rem 0 0 0;
+    color: green;
+}  
+
+.transactions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1rem;
+}
+  
+.transaction-card {
+    display: grid;
+    grid-template-columns: 100px 100px 1fr 120px auto;
+    align-items: center;
+    background-color: white;
+    width: 55%;
+    min-width: 300px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    font-size: 0.95rem;
+    gap: 1rem;
+    text-align: center;
+}
+
+.transaction-card .restore-btn {
+    color:red
+}
+
+.transaction-card.deleted {
+    color: red;
+    position: relative;
+    opacity: 0.8;
+}
+  
+.transaction-card.deleted::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    right: 9rem;
+    height: 2px;
+    background: red;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+  
+  
+.transaction-card .type {
+    font-weight: 600;
+    min-width: 70px;
+    text-transform: capitalize;
+}
+  
+.transaction-card .type.income {
+    color: green;
+}
+  
+.transaction-card .type.expense {
+    color: crimson;
+}
+  
+.transaction-card .amount {
+    font-weight: bold;
+    min-width: 80px;
+}
+  
+.transaction-card .category,
+.transaction-card .date {
+    white-space: nowrap;
+    color: #555;
+}
+  
+.transaction-card .actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+  
+.actions button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+  
+  /* Popup Styles */
+.popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    z-index: 999;
+}
+  
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+  
+.popup-buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+  
+.popup-buttons .danger {
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+  
+.popup-buttons button {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.sort-menu-wrapper {
+    position: fixed;
+    top: 5rem;
+    padding-left: 1rem;
+    z-index: 100;
+}
+  
+.options-btn {
+    font-size: 1rem;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    transition: background 0.2s ease;
+}
+  
+.options-btn:hover {
+    background-color: #e0e0e0;
+}
+  
+  
+.sort-panel {
+    margin-top: 0.5rem;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 180px;
+}
+  
+.sort-panel label {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+  
+.sort-panel select,
+.sort-panel button {
+    width: 100%;
+    margin-top: 0.3rem;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+  
+.add-transaction-container {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    z-index: 100;
+}
+  
+.add-transaction-btn {
+    display: flex;
+    align-items: center;
+    background-color: #007bffbe;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 70px;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease, padding 0.3s ease;
+    overflow: visible;
+    width: 70px;
+    height: 70px;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.plus-icon {
+    /* line-height: 50%; */
+    font-size: 1.7rem;
+    transition: margin-right 0.3s ease;
+    line-height: 1;
+}
+  
+.btn-label {
+    white-space: nowrap;
+    margin-left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+    line-height: 1;
+}
+  
+.add-transaction-btn:hover {
+    width: 220px;
+    justify-content: start;
+    padding-left: 1.5rem;
+}
+  
+.add-transaction-btn:hover .plus-icon {
+    margin-right: 0.5rem;
+}
+  
+.add-transaction-btn:hover .btn-label {
+    opacity: 1;
+    display: inline;
+}
+
+.add-transaction-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+}
+  
+.add-transaction-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+  
+.card-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+  
+.transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+.transaction-form input,
+.transaction-form select {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+}
+  
+.add-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+  
+  .add-btn:hover {
+    background-color: #0056b3;
+}
+  
+.msg {
+    padding: 3rem;
+    text-align: center;
+}

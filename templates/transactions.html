@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    
+    <!-- Add transaction button -->
+    <div class="add-transaction-container">
+        <form action="/add_transaction" method="get">
+            <button class="add-transaction-btn" type="submit">
+            <span class="plus-icon">+</span>
+            <span class="btn-label">Add Transaction</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Show transactions if there is any -->
+    {% if has_transactions %}
+
+        <!-- Options menu -->
+        <div class="sort-menu-wrapper">
+            <button id="sortMenuToggle" class="options-btn">Options</button>
+        
+            <!-- Sort options panel -->
+            <div id="sortOptionsPanel" class="sort-panel hidden">
+                <form action="/transactions" method="post">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by" name="sort">
+                        {% for k in order_keys%}
+                            <option value={{k}} {% if k==sort %} selected {% endif %}>{{orders[k]}}</option>
+                        {% endfor %}
+                    </select>
+                
+                    <label for="sort-order">Order:</label>
+                    <select id="sort-order" name="reverse">
+                        <option value="True" {% if desc %} selected {% endif %}>Increasing</option>
+                        <option value="False" {% if not desc %} selected {% endif %}>Decreasing</option>
+                    </select>
+
+                    <label for="category-filter">Filter categories:</label>
+                    <select id="category-filter" name="categories">
+                        <option value="All" {% if "All"==filter_category %} selected {% endif %}>All Categories</option>
+                        {% for c in categories%}
+                            <option value={{c["category_id"]}} {% if c["category_id"]==filter_category %} selected {% endif %}>{{c["category"]}}</option>
+                        {% endfor %}
+                    </select>
+                    <button id="applySortBtn" type="submit">Apply</button>
+                </form>
+            </div>
+        </div>
+  
+        <!-- Title -->
+        <h1 class="page-title">My Transactions</h1>
+
+        <!-- List Transactions -->
+        <div class="transactions-container">
+            {% for t in transactions %}
+                <!-- Transaction card -->
+                <div class="transaction-card {% if t["deleted"] %}deleted{% endif %}">
+                    <span class="type {% if t["amount"] < 0%}expense{% else %}income{% endif %}">{% if t["amount"] < 0%}Expense{% else %}Income{% endif %}</span>
+                    <span class="amount">{% if t["amount"] < 0%}-{% else %}+{% endif %} {{(t["amount"]|abs)|usd}}</span>
+                    <span class="category">{{t["categories"]["category"]}}</span>
+                    <span class="date">{{t["date_transacted"]|date}}</span>
+                    <div class="actions">
+                        {% if not t["deleted"] %}
+                            <form action="/edit_transaction" method="post" id="edit-{{t["transaction_id"]}}">
+                                <input hidden value={{t["transaction_id"]}} name="id">
+                                <button class="edit-btn" type="submit">✏️</button>
+                            </form>
+                            <button class="delete-btn" onclick="confirmDelete({{t["transaction_id"]}})">🗑️</button>
+                            <form action="/delete_transaction" method="post" id="delete-{{t["transaction_id"]}}">
+                                <input hidden value={{t["transaction_id"]}} name="id">
+                            </form>
+                        {% else %}
+                            <form action="/restore_transaction" method="post" id="restore-{{t["transaction_id"]}}">
+                                <input hidden value={{t["transaction_id"]}} name="id">
+                                <button class="restore-btn" type="submit">↻ Restore</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- Confirmation Popup -->
+            <div id="delete-popup" class="popup hidden">
+                <div class="popup-content">
+                <p>Are you sure you want to delete this transaction?</p>
+                <div class="popup-buttons">
+                    <button onclick="closePopup()">Cancel</button>
+                    <button id="confirm-delete" class="danger">Delete</button>
+                </div>
+                </div>
+            </div>
+          
+        </div>
+    
+    {% else %}
+        <!-- Message if there is no transactions -->
+        <h1 class="msg">You don't have any transactions yet<h1>
+
+    {% endif %}
+
+{% endblock %}

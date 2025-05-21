@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="login-container">
+        <!-- Login Form on the left -->
+        <div class="login-left">
+            <div class="login-card">
+                <h2>Log In</h2>
+
+                <!-- Fill out forms -->
+                <form action="/login" method="post">
+                    <input type="text" autofocus autocomplete="off" name="username" placeholder="Username">
+                    <input id="password_input" type="password" autocomplete="off" name="password" placeholder="Password">
+                    <div class="checkbox-container">
+                        <span>
+                            <input type="checkbox" name="show-password" id="show-password">
+                        </span>
+                        <span>
+                            <label for="show-password">Show Password</label>
+                        </span>
+                    </div>
+                    <button type="submit">Log In</button>
+                    
+                    <!-- Option to register -->
+                    <p class="register-text">
+                        Don't have an account?
+                        <a href="/register">Register</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    
+        <!-- Image and Branding on the right -->
+        <div class="login-right">
+            <div class="branding">
+                <h1>AgriFin</h1>
+                <p>Empowering Farmers. Tracking Finances. Growing Sustainably.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
