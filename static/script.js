@@ -22,34 +22,62 @@ function flashMsg(msg) {
 }
 
 // Create bar graphs for income and expenses
-function createBarGraph(element, labels, values, colors) {
+function createGroupedBarGraph(element, labels, values, sustainable, colorsGreen, colorsOrange) {
     // Find average
     let avg = values.reduce((a, b) => a + b, 0)
     avg /= values.length
-    avgData = Array(values.length).fill(avg)
+    let avgTotal = Array(values.length).fill(avg)
+
+    avg = sustainable.reduce((a, b) => a + b, 0)
+    avg /= sustainable.length
+    let avgSustainable = Array(sustainable.length).fill(avg)
 
     // Store data in array
     let data = {
         labels: labels,
         // Bars data
-        datasets: [{
+        datasets: [
+        // Total data
+        {
             data: values,
-            backgroundColor: colors,
-            order: 2,
+            backgroundColor: colorsOrange,
+            order: 3,
+            borderColor: "rgb(216, 119, 21)",
+            borderWidth: 2,
+            label: "Total"
+        },
+        // Sustainable data
+        {
+            data: sustainable,
+            backgroundColor: colorsGreen,
+            order: 4,
             borderColor: "green",
-            borderWidth: 2
+            borderWidth: 2,
+            label: "Sustainable"
         }, 
         // Average line data
         {
-            data: avgData,
+            data: avgTotal,
+            type: "line",
+            borderColor: "rgb(216, 119, 21)",
+            borderDash: [20,10],
+            pointRadius: 0,
+            pointHitRadius: 100,
+            tension: 0,
+            label: "avg total",
+            order: 1,
+        },
+        // Average line data
+        {
+            data: avgSustainable,
             type: "line",
             borderColor: "green",
             borderDash: [20,10],
             pointRadius: 0,
             pointHitRadius: 100,
             tension: 0,
-            label: "avg",
-            order: 1,
+            label: "avg sustainable",
+            order: 2,
         }
         ]
     }
@@ -69,7 +97,14 @@ function createBarGraph(element, labels, values, colors) {
             plugins: {
                 // No title or legend display
                 legend: {
-                    display: false,
+                    // display: true,
+                    labels: {
+                        filter: function(item, chart) {
+                            // Only show legend for "Total Spending"
+                            return (item.text === 'Total') || (item.text === "Sustainable");
+                        },
+                        padding: 20
+                    }
                 },
                 title: {
                     display: false,
@@ -106,6 +141,91 @@ function createBarGraph(element, labels, values, colors) {
     
 }
 
+// Create bar graphs for water usage
+function createBarGraph(element, labels, values, colors) {
+    // Find average
+    let avg = values.reduce((a, b) => a + b, 0)
+    avg /= values.length
+    avgData = Array(values.length).fill(avg)
+
+    // Store data in array
+    let data = {
+        labels: labels,
+        // Bars data
+        datasets: [{
+            data: values,
+            backgroundColor: colors,
+            order: 2,
+            borderColor: "blue",
+            borderWidth: 2
+        }, 
+        // Average line data
+        {
+            data: avgData,
+            type: "line",
+            borderColor: "blue",
+            borderDash: [20,10],
+            pointRadius: 0,
+            pointHitRadius: 100,
+            tension: 0,
+            label: "avg",
+            order: 1,
+        }
+        ]
+    }
+
+    // Create new chart
+    return new Chart(
+        // element to be drawn on
+        element, {
+
+        // plug in data
+        type: "bar",
+        data: data,
+
+        // customizations
+        options: {   
+            responsive: true,
+            plugins: {
+                // No title or legend display
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: false,
+                },
+
+                // Label units
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const value = context.parsed.y;
+                            return `${Math.floor(value * 100) / 100} Liters`
+                        }
+                    }
+                }
+            },
+
+            // Axes scaling
+            scales: {
+                x: {
+                    ticks: {
+                        padding: 0
+                    },
+                    grid: {
+                        offset: true
+                    },
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+    
+}
+
 // Create bar graphs of given time period and type
 async function createAnalysisCharts(period, type) {
     // Get data from database
@@ -115,8 +235,26 @@ async function createAnalysisCharts(period, type) {
     // Get element to be drawn on
     ctx = document.getElementById(type+"_chart_"+period)
 
+    // Create array of colors - all orange
+    colorsOrange = Array(result.values.length).fill('rgba(255, 159, 64, 0.8)')
     // Create array of colors - all green
-    colors = Array(result.values.length).fill("rgba(8, 145, 8, 0.59)")
+    colorsGreen = Array(result.values.length).fill("rgba(8, 145, 8, 0.59)")
+
+    // Create bar chart
+    let chart = createGroupedBarGraph(ctx, result.labels, result.values, result.sustainable, colorsGreen, colorsOrange)
+    return chart
+}
+
+async function createWaterChart(period) {
+    // Get data from database
+    const response = await fetch(`/water?period=${period}`)
+    const result = await response.json()
+
+    // Get element to be drawn on
+    ctx = document.getElementById("water_chart_"+period)
+
+    // Create array of colors - all blue
+    colors = Array(result.values.length).fill('rgba(54, 162, 235, 0.7)')
 
     // Create bar chart
     let chart = createBarGraph(ctx, result.labels, result.values, colors)
@@ -132,6 +270,10 @@ async function displayCharts() {
     await createAnalysisCharts("months", "income")
     await createCategoriesChart("frequency")
     await createCategoriesChart("spending")
+    await createWaterChart("weeks")
+    await createWaterChart("months")
+    await createFarmingTypesChart("frequency")
+    await createFarmingTypesChart("values")
 }
 
 // Create Line graph of account balances over the month
@@ -267,10 +409,23 @@ async function createCategoriesChart(type) {
 
     // Element to be drawn on
     ctx = document.getElementById("categories_chart_"+type)
-    color = "green" // color
 
     // Create chart
-    let chart = createPieGraph(ctx, result.labels, result.values, type, "Spending Categories")
+    let chart = createPieGraph(ctx, result.labels, result.values, type)
+    return chart
+}
+
+// Create farming types pie charts for analysis tab
+async function createFarmingTypesChart(type) {
+    // Get data from database
+    const response = await fetch(`/farming?type=${type}`)
+    const result = await response.json()
+
+    // Element to be drawn on
+    ctx = document.getElementById("farming_chart_"+type)
+
+    // Create chart
+    let chart = createPieGraph(ctx, result.labels, result.values, type)
     return chart
 }
 
@@ -310,11 +465,13 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         let date = addTransaction.querySelector("#add_transac_date").value;
         let category_income = addTransaction.querySelector("#add_transac_category_income").value;
         let category_expense = addTransaction.querySelector("#add_transac_category_expense").value;
+        let water = addTransaction.querySelector("#add_transac_water").value;
+        let farming_type = addTransaction.querySelector("#add_transac_farming").value;
 
-        console.log(amount, type, date, "HIIII")
+        console.log(amount, type, farming_type, "HIIII")
 
         // Flash error if not all fields are filled out
-        if (!amount || (type == "Type") || !date || ((category_expense == "Select Category") && (category_income == "Select Category"))) {
+        if (!amount || (type == "Type") || !date || ((category_expense == "Select Category") && (category_income == "Select Category")) || !water || (farming_type == 0)) {
             flashMsg("All required fields must be filled out!");
             return;
         }
@@ -322,6 +479,12 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         // Flash error for invalid amount number
         if (countDecimalPlaces(amount) > 2 || parseInt(amount) <= 0) {
             flashMsg("Invalid amount for transaction!")
+            return
+        }
+
+        // Flash error for invalid amount of water
+        if (parseInt(water) <= 0) {
+            flashMsg("Invalid amount for water usage!")
             return
         }
     
@@ -351,6 +514,16 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
             // Hide category field if type is income
             document.querySelector("#add_transac_category_expense").hidden = true
             document.querySelector("#add_transac_category_income").hidden = false
+        }
+    })
+
+    farming_type = document.querySelector("#add_transac_farming")
+    farming_type.addEventListener("change", () => {
+        value = farming_type.value;
+        if (value == 1) {
+            document.querySelector("#sustainable").checked = false;
+        } else {
+            document.querySelector("#sustainable").checked = true;
         }
     })
 }

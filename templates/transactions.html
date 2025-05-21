@@ -58,6 +58,7 @@
                     <span class="type {% if t["amount"] < 0%}expense{% else %}income{% endif %}">{% if t["amount"] < 0%}Expense{% else %}Income{% endif %}</span>
                     <span class="amount">{% if t["amount"] < 0%}-{% else %}+{% endif %} {{(t["amount"]|abs)|usd}}</span>
                     <span class="category">{{t["categories"]["category"]}}</span>
+                    <span class="sustainable">{% if t["sustainable"] %}♻️{%endif%}</span>
                     <span class="date">{{t["date_transacted"]|date}}</span>
                     <div class="actions">
                         {% if not t["deleted"] %}

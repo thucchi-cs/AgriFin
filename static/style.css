@@ -296,8 +296,8 @@
   
 .register-card button:hover {
     background-color: #0056b3;
-}
-  
+}  
+
 .checkbox-container {
     margin-left: 0.25rem;
     display: flex;
@@ -313,8 +313,7 @@
     font-size: 0.9rem;
     color: #555;
 }
-  
-  
+
 .login-text {
     margin-top: 10px;
     font-size: 0.9rem !important;
@@ -583,7 +582,6 @@ canvas {
 }
   
 .hidden {
-    background-color: red;
     display: none !important;
 }
 
@@ -609,7 +607,7 @@ canvas {
   
 .transaction-card {
     display: grid;
-    grid-template-columns: 100px 100px 1fr 120px auto;
+    grid-template-columns: 100px 100px 1fr 100px 120px auto;
     align-items: center;
     background-color: white;
     width: 55%;
@@ -668,6 +666,10 @@ canvas {
 .transaction-card .date {
     white-space: nowrap;
     color: #555;
+}
+
+.transaction-card .sustainable {
+    font-size: 1.5rem;
 }
   
 .transaction-card .actions {
@@ -846,7 +848,67 @@ canvas {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     padding: 2rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
+}
+
+#more-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+#more-details.open {
+    max-height: 500px;
+}
+
+.subcard {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.subcard-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.subcard input,
+.subcard select {
+    /* display: block; */
+    width: 100%;
+    margin-top: 10px;
+}
+
+.sustainability {
+    display: flex;
+}
+
+.sustainability select {
+    width: 70%;
+}
+
+.sustainability .checkbox-container {
+    display:flex;
+    align-items: center;
+    text-align: left;
+    /* margin-top: 8px; */
+    margin-left: 25px;
+    gap: 8px;
+}
+
+.sustainability .checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #4CAF50; /* optional: makes it match your theme */
+}
+
+.sustainability .checkbox-container span {
+    height: 20px;
+    margin-top: 3px;
 }
   
 .card-title {

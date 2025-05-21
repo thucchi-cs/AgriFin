@@ -170,6 +170,9 @@ def add_transaction():
         type = request.form.get("type")
         category = request.form.get(f"category_{type}")
         amount *= -1 if type == "expense" else 1
+        water = request.form.get("water")
+        farming_type = request.form.get("farming_type")
+        sustainable = request.form.get("sustainable")
         today = date.today()
 
         # Arrange inputs into json dictionary to be passed in to database
@@ -179,7 +182,10 @@ def add_transaction():
             "abs_amount": abs(amount),
             "date_transacted": date_transacted, 
             "date_added": str(today), 
-            "category_id": category
+            "category_id": category,
+            "water_usage": water,
+            "farming_id": farming_type,
+            "sustainable": sustainable
         }
         
         # Insert transaction into database
@@ -192,8 +198,9 @@ def add_transaction():
         # Go back to transactions page
         return redirect("/transactions")
     
+    farming_types = db.table("farming_types").select("*").execute().data
     # Open add transactions page
-    return render_template("add_transaction.html", add=True, edit=False, categories_income=session["categories_income"], categories_expense=session["categories_expense"])
+    return render_template("add_transaction.html", add=True, edit=False, categories_income=session["categories_income"], categories_expense=session["categories_expense"], farming_types=farming_types)
 
 # Edit a transaction page
 @app.route("/edit_transaction", methods=["POST"])
@@ -201,9 +208,10 @@ def add_transaction():
 def edit_transaction():
     # Get info of transaction to be edited
     transaction_info = db.table("transactions").select("*").eq("transaction_id", request.form.get("id")).execute().data[0]
+    farming_types = db.table("farming_types").select("*").execute().data
     
     # Go to add transaction page
-    return render_template("add_transaction.html", add=False, edit=True, info=transaction_info, categories_income=session["categories_income"], categories_expense=session["categories_expense"])
+    return render_template("add_transaction.html", add=False, edit=True, info=transaction_info, categories_income=session["categories_income"], categories_expense=session["categories_expense"], farming_types=farming_types)
 
 # Edit transaction
 @app.route("/edited_transaction", methods=["POST"])
@@ -215,7 +223,10 @@ def edited_transaction():
     category = request.form.get(f"category_{type}")
     amount *= -1 if type == "expense" else 1
     id = request.form.get("id")
-    print(category)
+    water = request.form.get("water")
+    farming_type = request.form.get("farming_type")
+    sustainable = request.form.get("sustainable")
+
     # Find updated difference 
     difference = amount - db.table("transactions").select("*").eq("transaction_id", request.form.get("id")).execute().data[0]["amount"]
     
@@ -224,7 +235,10 @@ def edited_transaction():
         "amount": amount,
         "abs_amount": abs(amount),
         "date_transacted": date_transacted,
-        "category_id": category
+        "category_id": category,
+        "water_usage": water,
+        "farming_id": farming_type,
+        "sustainable": sustainable
     }
     db.table("transactions").update(data).eq("transaction_id", id).execute()
     
@@ -278,83 +292,58 @@ def update_session():
 
 # Get user's data for chart analysis
 @app.route("/get_chart_data")
-def get_transac_analysis_data():
-    # Get current date
-    today = date.today()
-    
-    # Get inputs
+def get_transac_analysis_data(): 
     week = True if request.args.get("periods", "weeks") == "weeks" else False
-    labels = []
-    
-    # Find date ranges for past 6 weeks
-    if week:
-        # Find current week
-        days_difference = (today.weekday() + 1) % 7
-        begin = today - timedelta(days=days_difference)
-        end = begin + timedelta(days=6)
-        date_ranges = [{
-            "begin": begin,
-            "end": end
-        }]
-        week_label = begin.strftime("%m/%d") + " - " + end.strftime("%m/%d")
-        labels.append(week_label)
-        
-        # Find past 5 weeks
-        for i in range(5):
-            begin -= timedelta(days=7)
-            end = begin + timedelta(days=6)
-            date_ranges.insert(0, {
-                "begin": begin,
-                "end": end
-            })
-            week_label = begin.strftime("%m/%d") + " - " + end.strftime("%m/%d")
-            labels.insert(0, week_label)
+    labels, date_ranges = get_date_ranges(week)
 
-    # Find date ranges for past 6 months
-    else:
-        # Find current month
-        month = today.month
-        year = today.year
-        begin = date(year, month, 1)
-        end = date(year, month, monthrange(year, month)[1])
-        date_ranges = [{
-            "begin": begin,
-            "end": end
-        }]
-        month_label = begin.strftime("%B")
-        labels.append(month_label)
-        
-        # Find past 5 months
-        for i in range(5):
-            month -= 1
-            if month < 1:
-                month = 12 - month
-                year -= 1
-            begin = date(year, month, 1)
-            end = date(year, month, monthrange(year, month)[1])
-            date_ranges.insert(0, {
-                "begin": begin,
-                "end": end
-            })
-            month_label = begin.strftime("%B")
-            labels.insert(0, month_label)
-    
     # Query data base for each time range
-    values = []      
+    total = [] 
+    sustainable = []     
     for r in date_ranges:
         # Get inputs
         transac_type = request.args.get("type", "income")
         
         # Query either income or expenses
         if transac_type == "income":
-            response = db.table("transactions").select("abs_amount").eq("user_id", session.get("user_id")).eq("deleted", False).gt("amount", 0).gte("date_transacted", r.get("begin")).lte("date_transacted", r.get("end")).execute()
+            response = db.table("transactions").select("abs_amount", "sustainable").eq("user_id", session.get("user_id")).eq("deleted", False).gt("amount", 0).gte("date_transacted", r.get("begin")).lte("date_transacted", r.get("end")).execute()
         else:
-            response = db.table("transactions").select("abs_amount").eq("user_id", session.get("user_id")).eq("deleted", False).lt("amount", 0).gte("date_transacted", r.get("begin")).lte("date_transacted", r.get("end")).execute()
+            response = db.table("transactions").select("abs_amount", "sustainable").eq("user_id", session.get("user_id")).eq("deleted", False).lt("amount", 0).gte("date_transacted", r.get("begin")).lte("date_transacted", r.get("end")).execute()
         
         # Update info to be displayed
         data = response.data
-        data = [i["abs_amount"] for i in data]
+        total_amount = 0
+        total_sustainable = 0
+        for d in data:
+            total_amount += d["abs_amount"]
+            total_sustainable += d["abs_amount"] if d["sustainable"] else 0
+            print(d["sustainable"])
+
+        total.append(total_amount)
+        sustainable.append(total_sustainable)
+
+        
+    # Return the labels and values for graphs
+    return jsonify({"labels":labels, "values": total, "sustainable": sustainable})
+
+# Get user's water usage for analysis
+@app.route("/water")
+def get_water():
+    week = True if request.args.get("period", "weeks") == "weeks" else False
+    labels, date_ranges = get_date_ranges(week)
+
+    # Query data base for each time range
+    values = []    
+    for r in date_ranges:
+        
+        # Get water usage of this date range
+        response = db.table("transactions").select("water_usage").eq("user_id", session.get("user_id")).eq("deleted", False).gte("date_transacted", r.get("begin")).lte("date_transacted", r.get("end")).execute()
+        
+        # Update info to be displayed
+        data = response.data
+        data = [i["water_usage"] for i in data]
+
         values.append(sum(data))
+
         
     # Return the labels and values for graphs
     return jsonify({"labels":labels, "values": values})
@@ -431,6 +420,40 @@ def get_categories():
             
         # Add info to data to be passed into chart
         values[str(i["categories"]["category"]).capitalize()] = count
+    
+    # Return labels and values for charts
+    return jsonify({"labels": list(values.keys()), "values": list(values.values())})
+
+# Get the user's farming types
+@app.route("/farming")
+def get_types():
+    # Get current date and month
+    today = date.today()
+    start = date(today.year, today.month, 1)
+    end = date(today.year, today.month, monthrange(today.year, today.month)[1])
+    
+    # Query all transactions of this month
+    types = db.table("transactions").select("farming_types(type)", "abs_amount").eq("user_id", session.get("user_id")).eq("deleted", False).gte("date_transacted", start).lte("date_transacted", end).execute().data
+    values = {}
+    
+    # Get inputs    
+    sort_type = request.args.get("type", "values")
+    
+    # Update counts for categories based on each transaction
+    for i in types:
+        count = values.get(str(i["farming_types"]["type"]).capitalize(), 0)
+        
+        # Update frequency count
+        if sort_type == "frequency":
+            count += 1
+            
+        # Update amount count
+        elif sort_type == "values":
+            count += i["abs_amount"]
+            print(count, i["abs_amount"], i["farming_types"]["type"])
+
+        # Add info to data to be passed into chart
+        values[str(i["farming_types"]["type"]).capitalize()] = count
     
     # Return labels and values for charts
     return jsonify({"labels": list(values.keys()), "values": list(values.values())})

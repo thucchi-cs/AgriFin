@@ -1,4 +1,5 @@
-from datetime import date
+from calendar import monthrange
+from datetime import date, timedelta
 from flask import redirect, session, flash
 from functools import wraps
 from werkzeug.security import check_password_hash
@@ -125,3 +126,65 @@ def get_user_balance(db, user_id):
     print(db.table("balances").select("current_balance").eq("user_id", user_id).execute().data)
     balance = db.table("balances").select("current_balance").eq("user_id", user_id).execute().data[0].get("current_balance")
     return balance
+
+def get_date_ranges(week):
+    # Get current date
+    today = date.today()
+    
+    # Get inputs
+    labels = []
+    
+    # Find date ranges for past 6 weeks
+    if week:
+        # Find current week
+        days_difference = (today.weekday() + 1) % 7
+        begin = today - timedelta(days=days_difference)
+        end = begin + timedelta(days=6)
+        date_ranges = [{
+            "begin": begin,
+            "end": end
+        }]
+        week_label = begin.strftime("%m/%d") + " - " + end.strftime("%m/%d")
+        labels.append(week_label)
+        
+        # Find past 5 weeks
+        for i in range(5):
+            begin -= timedelta(days=7)
+            end = begin + timedelta(days=6)
+            date_ranges.insert(0, {
+                "begin": begin,
+                "end": end
+            })
+            week_label = begin.strftime("%m/%d") + " - " + end.strftime("%m/%d")
+            labels.insert(0, week_label)
+
+    # Find date ranges for past 6 months
+    else:
+        # Find current month
+        month = today.month
+        year = today.year
+        begin = date(year, month, 1)
+        end = date(year, month, monthrange(year, month)[1])
+        date_ranges = [{
+            "begin": begin,
+            "end": end
+        }]
+        month_label = begin.strftime("%B")
+        labels.append(month_label)
+        
+        # Find past 5 months
+        for i in range(5):
+            month -= 1
+            if month < 1:
+                month = 12 - month
+                year -= 1
+            begin = date(year, month, 1)
+            end = date(year, month, monthrange(year, month)[1])
+            date_ranges.insert(0, {
+                "begin": begin,
+                "end": end
+            })
+            month_label = begin.strftime("%B")
+            labels.insert(0, month_label)
+
+    return labels, date_ranges
