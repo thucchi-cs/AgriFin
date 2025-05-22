@@ -349,7 +349,7 @@ async function createBalanceChart() {
 
     // Element to be drawn on
     ctx = document.getElementById("balance_chart")
-    color = "green" // color
+    color = "rgba(255, 159, 64, 0.8)" // color
 
     // Create chart
     let chart = createLineGraph(ctx, result.labels, result.values, color)

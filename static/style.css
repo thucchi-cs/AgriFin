@@ -49,7 +49,7 @@
 .login-card button {
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: rgba(255, 159, 64, 0.8);
     color: white;
     font-weight: bold;
     border: none;
@@ -60,12 +60,12 @@
 }
   
 .login-card button:hover {
-    background-color: #218838;
+    background-color: rgb(216, 119, 21);
 }
   
 .login-right {
     position: relative;
-    background: url('/static/pattern.jpg') center center / cover no-repeat;
+    background: url('/static/pattern.png') center center / cover no-repeat;
     color: white;
     text-align: center;
     padding: 30px;
@@ -79,7 +79,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.568); /* semi-transparent gray */
+    background-color: rgba(0, 0, 0, 0.6); /* semi-transparent gray */
     z-index: 0;
 }
 
@@ -111,7 +111,7 @@
 }
   
 .register-text a {
-    color: #007bff;
+    color: rgba(255, 159, 64, 0.8);
     text-decoration: none;
     font-weight: 500;
 }
@@ -129,46 +129,6 @@
   background-color: #f7f7f7;
 }
 
-.register-card {
-  background-color: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.register-card h2 {
-  margin-bottom: 20px;
-}
-
-.register-card input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.register-card button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.register-card button:hover {
-  background-color: #0056b3;
-}
-
 .checkbox-container {
   margin-bottom: 0px;
   margin-top: 0px;
@@ -178,22 +138,6 @@
 .checkbox-container label {
   font-size: 0.9rem;
   color: #555;
-}
-
-.login-text {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.login-text a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.login-text a:hover {
-  text-decoration: underline;
 }
 
 /* For the left side background */
@@ -208,7 +152,7 @@
   
 .register-left {
     width: 50%;
-    background: url('/static/pattern.jpg') center center / cover no-repeat;
+    background: url('/static/pattern.png') center center / cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -284,7 +228,7 @@
 .register-card button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: rgba(255, 159, 64, 0.8);
     color: white;
     font-weight: bold;
     border: none;
@@ -295,7 +239,7 @@
 }
   
 .register-card button:hover {
-    background-color: #0056b3;
+    background-color: rgb(216, 119, 21);
 }  
 
 .checkbox-container {
@@ -322,7 +266,7 @@
 }
   
 .login-text a {
-    color: #007bff;
+    color: rgba(255, 159, 64, 0.8);
     text-decoration: none;
     font-weight: 500;
 }
@@ -468,7 +412,7 @@ canvas {
 .current-balance {
     font-size: 1.65rem;
     font-weight: 600;
-    color: #2e7d32; /* dark green or whatever fits your theme */
+    color: rgba(255, 159, 64, 1);
 }
 
 .month-summary {
@@ -488,7 +432,7 @@ canvas {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d1e9d4;
+    background-color: rgba(255, 159, 64, 0.5);
     color: rgb(73, 73, 73);
     padding: 1rem 1.25rem;
     border-bottom-left-radius: 1rem;
@@ -509,7 +453,7 @@ canvas {
 }  
 
 .card-footer-link:hover {
-    background-color: #8cb392; /* slightly darker on hover */
+    background-color: rgba(255, 159, 64, 1); /* slightly darker on hover */
     cursor: pointer;
     color: white;
 }
@@ -594,7 +538,7 @@ canvas {
     font-weight: 700;
     text-align: center;
     margin: 2rem 0 0 0;
-    color: green;
+    color: rgba(255, 159, 64, 1);
 }  
 
 .transactions-container {
@@ -787,11 +731,10 @@ canvas {
 .add-transaction-btn {
     display: flex;
     align-items: center;
-    background-color: #007bffbe;
+    background-color: rgba(255, 159, 64, 1);
     color: rgb(255, 255, 255);
     border: none;
     border-radius: 70px;
-    padding: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
@@ -805,8 +748,7 @@ canvas {
 }
 
 .plus-icon {
-    /* line-height: 50%; */
-    font-size: 1.7rem;
+    font-size: 2rem;
     transition: margin-right 0.3s ease;
     line-height: 1;
 }
@@ -932,7 +874,7 @@ canvas {
 }
   
 .add-btn {
-    background-color: #007bff;
+    background-color: rgba(255, 159, 64, 0.8);
     color: white;
     padding: 0.75rem;
     font-size: 1rem;
@@ -942,8 +884,8 @@ canvas {
     transition: background 0.2s ease;
 }
   
-  .add-btn:hover {
-    background-color: #0056b3;
+.add-btn:hover {
+    background-color: rgba(255, 159, 64, 1);
 }
   
 .msg {
