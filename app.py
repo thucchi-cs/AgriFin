@@ -91,7 +91,7 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         password2 = request.form.get("password2")
-        balance = float(request.form.get("balance"))
+        balance = request.form.get("balance")
         
         # Check for input validity
         if check_valid_registration(db, username, password, password2, balance):

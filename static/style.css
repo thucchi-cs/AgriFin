@@ -1,3 +1,9 @@
+.alert {
+    background-color: rgba(255, 159, 64, 0.7);
+    border-color: rgba(255, 159, 64, 1);
+    color: black;
+}
+
 .login-container {
     display: flex;
     height: 100vh;
@@ -377,7 +383,7 @@
 }
   
 .dropdown-content a:hover {
-    background-color: #28a745;
+    background-color: rgba(255, 159, 64, 0.8);
 }
   
 .dropdown:hover .dropdown-content {

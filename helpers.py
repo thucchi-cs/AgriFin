@@ -87,6 +87,11 @@ def check_valid_registration(db, username, password, password2, balance):
         return False
     
     # Check for valid starting balance
+    try:
+        balance = float(balance)
+    except:
+        flash("Invalid starting balance!")
+        
     if balance < 0:
         flash("Invalid starting balance!")
         return False
