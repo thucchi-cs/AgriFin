@@ -1,70 +1,35 @@
 Note: This project is an extended version of [FinTrack](https://github.com/thucchi-cs/FinTrack) (also originally made by thucchi-cs in 2025). Check out [FinTrack](https://github.com/thucchi-cs/FinTrack) to see the entire original coding progress.
 
 # AgriFin
-## Description
-A financial management tool tailored to help small farmers and local agricultural businesses manage costs and track sustainable practices. In this website, users can add in financial transactions related to their farming business. Each transaction allows users to input details about its impact on the environment.
-
-
-
-# AgriFin
-
-A financial management tool tailored to help small farmers and local agricultural businesses manage costs and track sustainable practices.
 
 ## Description
 
-In this website, users can add in financial transactions related to their farming business. Each transaction allows users to input details about its impact on the environment.
+A financial management tool tailored to help small farmers and local agricultural businesses manage costs and track sustainable practices. In this website, users can add in financial transactions related to their farming business. Each transaction allows users to input details about it and its impact on the environment. After inputting their transactions, users can analyze their activities and sustainability practices through easy to understand graphs and charts.
 
 ## Getting Started
 
-### Dependencies
+This website is deployed on the web with Render at [AgriFin](https://argifin-chb5.onrender.com). We used the free hobby version of Render, so the website will take a few minutes to load initially. 
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+1. Log in to your account
+![alt text](static/image.png)
+or register with an username and password
+![alt text](static/image-1.png)
 
-### Installing
+2. View your account overview on the dashboard
+![alt text](static/image-2.png)
+and see all your transactions on the transactions tab
+![alt text](static/image-3.png)
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+3. Add, edit or delete your transactions. Input its details about the environmental impact.
+![alt text](static/image-4.png)
 
-### Executing program
+4. View analysis on your activities and environmental impacts on the analysis tab
+![alt text](<static/Recording 2025-05-22 113625.gif>)
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+## Creating AgriFin
+This website was entirely programmed by thucchi-cs in May 2025. 
+* Online PostgreSQL database on Supabase
+* Coded with Python using Flask framework
+* JavaScript, HTML, CSS used for styling and design
+* Charts were created with JavaScript's Chartjs
+* Deployed on Render

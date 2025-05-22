@@ -566,10 +566,10 @@ canvas {
 /* display of each transaction */
 .transaction-card {
     display: grid;
-    grid-template-columns: 100px 100px 1fr 100px 120px auto;
+    grid-template-columns: 15% 15% 15% 15% 10% auto;
     align-items: center;
     background-color: white;
-    width: 55%;
+    width: 65%;
     min-width: 300px;
     padding: 1rem 1.5rem;
     border-radius: 8px;
