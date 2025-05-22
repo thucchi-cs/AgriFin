@@ -132,32 +132,13 @@ def analysis():
 # Transactions page
 @app.route("/transactions", methods=["POST", "GET"])
 @login_required
-def transactions():
-    # Default sorting values
-    orders = {"date_transacted": "Date", "abs_amount": "Amount"}
-    sort_by = "date_transacted"
-    desc = False
-    filter_category = "All"
-    
-    # Get sorting values if needed
-    if request.method == "POST":
-        sort_by = request.form.get("sort")
-        desc = request.form.get("reverse")
-        desc = False if desc == "False" else True
-        filter_category = request.form.get("categories")
-        filter_category = 0 if filter_category == "All" else int(filter_category)
-    
+def transactions():    
     # Query database for transactions
-    desc = not desc
-    if filter_category == "All":
-        user_transactions = db.table("transactions").select("*, categories(category)").eq("user_id", session['user_id']).order(sort_by, desc=desc).execute().data
-    else:
-        user_transactions = db.table("transactions").select("*, categories(category)").eq("user_id", session['user_id']).eq("category_id", filter_category).order(sort_by, desc=desc).execute().data
-    
+    user_transactions = db.table("transactions").select("*, categories(category)").eq("user_id", session['user_id']).order("date_transacted", desc=True).execute().data
     has_transactions = len(user_transactions) > 0
 
     # Go to transactions page
-    return render_template("transactions.html", transactions=user_transactions, has_transactions=has_transactions, sort=sort_by, order_keys=orders.keys(), orders=orders, desc=not desc, page="transactions", categories_income=session["categories_income"], categories_expense=session["categories_expense"], filter_category=filter_category)
+    return render_template("transactions.html", transactions=user_transactions, has_transactions=has_transactions, page="transactions", categories_income=session["categories_income"], categories_expense=session["categories_expense"])
 
 # Add a transaction
 @app.route("/add_transaction", methods=["POST", "GET"])
@@ -316,7 +297,6 @@ def get_transac_analysis_data():
         for d in data:
             total_amount += d["abs_amount"]
             total_sustainable += d["abs_amount"] if d["sustainable"] else 0
-            print(d["sustainable"])
 
         total.append(total_amount)
         sustainable.append(total_sustainable)
@@ -360,7 +340,7 @@ def get_balance():
     current_balance = db.table("balances").select("current_balance").eq("user_id", session.get("user_id")).execute().data[0]["current_balance"]
 
     # Find user's balance everyday of this month
-    for i in range(today.day, 0, -1):
+    for i in range(today.day+1, 1, -1):
         # Get date 
         current_date = date(today.year, today.month, i)
         
@@ -377,9 +357,10 @@ def get_balance():
         
         # Update balance for that date
         current_balance -= today_amount
+        update_date = date(today.year, today.month, i-1)
 
         # Add info to be passed into charts
-        labels.insert(0, current_date.strftime("%m/%d"))
+        labels.insert(0, update_date.strftime("%m/%d"))
         values.insert(0, current_balance)
     
     # Add NULL info for dates after today of this month
@@ -450,7 +431,6 @@ def get_types():
         # Update amount count
         elif sort_type == "values":
             count += i["abs_amount"]
-            print(count, i["abs_amount"], i["farming_types"]["type"])
 
         # Add info to data to be passed into chart
         values[str(i["farming_types"]["type"]).capitalize()] = count

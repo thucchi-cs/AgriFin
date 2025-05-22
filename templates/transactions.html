@@ -14,38 +14,6 @@
 
     <!-- Show transactions if there is any -->
     {% if has_transactions %}
-
-        <!-- Options menu -->
-        <div class="sort-menu-wrapper">
-            <button id="sortMenuToggle" class="options-btn">Options</button>
-        
-            <!-- Sort options panel -->
-            <div id="sortOptionsPanel" class="sort-panel hidden">
-                <form action="/transactions" method="post">
-                    <label for="sort-by">Sort by:</label>
-                    <select id="sort-by" name="sort">
-                        {% for k in order_keys%}
-                            <option value={{k}} {% if k==sort %} selected {% endif %}>{{orders[k]}}</option>
-                        {% endfor %}
-                    </select>
-                
-                    <label for="sort-order">Order:</label>
-                    <select id="sort-order" name="reverse">
-                        <option value="True" {% if desc %} selected {% endif %}>Increasing</option>
-                        <option value="False" {% if not desc %} selected {% endif %}>Decreasing</option>
-                    </select>
-
-                    <label for="category-filter">Filter categories:</label>
-                    <select id="category-filter" name="categories">
-                        <option value="All" {% if "All"==filter_category %} selected {% endif %}>All Categories</option>
-                        {% for c in categories%}
-                            <option value={{c["category_id"]}} {% if c["category_id"]==filter_category %} selected {% endif %}>{{c["category"]}}</option>
-                        {% endfor %}
-                    </select>
-                    <button id="applySortBtn" type="submit">Apply</button>
-                </form>
-            </div>
-        </div>
   
         <!-- Title -->
         <h1 class="page-title">My Transactions</h1>
@@ -91,7 +59,9 @@
                 </div>
             </div>
           
+            <p style="font-size:large">♻️ - Sustainable Transaction</p>
         </div>
+
     
     {% else %}
         <!-- Message if there is no transactions -->

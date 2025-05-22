@@ -135,8 +135,6 @@ def get_user_balance(db, user_id):
 def get_date_ranges(week):
     # Get current date
     today = date.today()
-    
-    # Get inputs
     labels = []
     
     # Find date ranges for past 6 weeks

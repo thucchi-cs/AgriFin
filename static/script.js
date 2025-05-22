@@ -18,7 +18,6 @@ function flashMsg(msg) {
     let flash = document.querySelector("#flash-msg")
     flash.hidden = false;
     flash.querySelector("#msg").innerHTML = msg
-    console.log("hi")
 }
 
 // Create bar graphs for income and expenses
@@ -245,6 +244,7 @@ async function createAnalysisCharts(period, type) {
     return chart
 }
 
+// Create water usage chart for analysis tab
 async function createWaterChart(period) {
     // Get data from database
     const response = await fetch(`/water?period=${period}`)
@@ -410,9 +410,15 @@ async function createCategoriesChart(type) {
     // Element to be drawn on
     ctx = document.getElementById("categories_chart_"+type)
 
-    // Create chart
-    let chart = createPieGraph(ctx, result.labels, result.values, type)
-    return chart
+    if (result.labels.length > 0) {
+        text = document.querySelector(".categories_text").classList.add("hidden");
+
+        // Create chart
+        let chart = createPieGraph(ctx, result.labels, result.values, type)
+        return chart
+    }
+    ctx.classList.add("hidden")
+    text = document.querySelector(".categories_text").classList.remove("hidden");
 }
 
 // Create farming types pie charts for analysis tab
@@ -420,13 +426,19 @@ async function createFarmingTypesChart(type) {
     // Get data from database
     const response = await fetch(`/farming?type=${type}`)
     const result = await response.json()
-
+    
     // Element to be drawn on
     ctx = document.getElementById("farming_chart_"+type)
+    
+    if (result.labels.length > 0) {
+        text = document.querySelector(".farming_text").classList.add("hidden");
 
-    // Create chart
-    let chart = createPieGraph(ctx, result.labels, result.values, type)
-    return chart
+        // Create chart
+        let chart = createPieGraph(ctx, result.labels, result.values, type)
+        return chart
+    }
+    ctx.classList.add("hidden")
+    text = document.querySelector(".farming_text").classList.remove("hidden");
 }
 
 // Switching tab logic
@@ -441,6 +453,12 @@ function switchTab(button, chart, period) {
     canvases.forEach(canvas => canvas.classList.add('hidden'));
     
     // Show selected chart
+    if ((chart === "farming") || (chart === "categories")) {
+        text = document.querySelector(`.${chart}_text`)
+        if (!text.classList.contains("hidden")) {
+            return
+        }
+    }
     document.getElementById(`${chart}_chart_${period}`).classList.remove('hidden');
 }
   
@@ -468,7 +486,6 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         let water = addTransaction.querySelector("#add_transac_water").value;
         let farming_type = addTransaction.querySelector("#add_transac_farming").value;
 
-        console.log(amount, type, farming_type, "HIIII")
 
         // Flash error if not all fields are filled out
         if (!amount || (type == "Type") || !date || ((category_expense == "Select Category") && (category_income == "Select Category")) || !water || (farming_type == 0)) {
@@ -483,7 +500,7 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         }
 
         // Flash error for invalid amount of water
-        if (parseInt(water) <= 0) {
+        if (parseInt(water) < 0) {
             flashMsg("Invalid amount for water usage!")
             return
         }
@@ -491,7 +508,6 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         // Flash error for invalid date
         let today = new Date();
         date = new Date(date);
-        console.log(today, date)
         if (date > today) {
             flashMsg("Invalid date!")
             return;
@@ -507,22 +523,26 @@ if ((window.location.pathname == "/add_transaction") || (window.location.pathnam
         // Get type of transaction
         value = transac_type.value
         if (value == "expense") {
-            // Show category field if type is expense
+            // Show category field for expenses
             document.querySelector("#add_transac_category_expense").hidden = false
             document.querySelector("#add_transac_category_income").hidden = true
         } else {
-            // Hide category field if type is income
+            // Show category field for income
             document.querySelector("#add_transac_category_expense").hidden = true
             document.querySelector("#add_transac_category_income").hidden = false
         }
     })
 
+    // Change sustainability based on farming type
     farming_type = document.querySelector("#add_transac_farming")
     farming_type.addEventListener("change", () => {
+        // Get farming type
         value = farming_type.value;
         if (value == 1) {
+            // Is sustainable
             document.querySelector("#sustainable").checked = false;
         } else {
+            // not sustainable
             document.querySelector("#sustainable").checked = true;
         }
     })

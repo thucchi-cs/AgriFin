@@ -1,14 +1,17 @@
+/* flash popup */
 .alert {
     background-color: rgba(255, 159, 64, 0.7);
     border-color: rgba(255, 159, 64, 1);
     color: black;
 }
 
+/* login page */
 .login-container {
     display: flex;
     height: 100vh;
 }
-  
+
+/* login page layout */
 .login-left, .login-right {
     width: 50%;
     display: flex;
@@ -29,6 +32,7 @@
     background-color: #f7f7f7;
 }
   
+/* login fill out section*/
 .login-card {
     background-color: white;
     padding: 40px;
@@ -41,6 +45,7 @@
   
 .login-card h2 {
     margin-bottom: 20px;
+    color: rgba(255, 159, 64, 1);
 }
   
 .login-card input {
@@ -69,13 +74,14 @@
     background-color: rgb(216, 119, 21);
 }
   
+/* pattern on half of screen */
 .login-right {
     position: relative;
     background: url('/static/pattern.png') center center / cover no-repeat;
     color: white;
     text-align: center;
     padding: 30px;
-    overflow: hidden; /* Ensures the overlay doesn't spill out */
+    overflow: hidden;
 }
 
 .login-right::before {
@@ -85,18 +91,17 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* semi-transparent gray */
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 0;
 }
 
-/* Make sure the actual content stays above the overlay */
+/* design on top of pattern background */
 .branding {
     position: relative;
     z-index: 1;
     width: 700px;
 }
 
-  
 .branding h1 {
     font-size: 5rem;
     margin-bottom: 15px;
@@ -109,6 +114,7 @@
     font-weight: 50px;
 }
   
+/* link redirecting to register */
 .register-text {
     margin-top: 10px;
     font-size: 0.9rem;
@@ -126,53 +132,53 @@
     text-decoration: underline;
 }
   
-.register-left {
-  width: 50vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7f7f7;
-}
 
+/* show/hide password field */
 .checkbox-container {
-  margin-bottom: 0px;
-  margin-top: 0px;
-  text-align: left;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-align: left;
+    margin-left: 0.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    justify-content: flex-start;
+    accent-color: #28a745;
 }
 
 .checkbox-container label {
-  font-size: 0.9rem;
-  color: #555;
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    align-items: center;
 }
 
-/* For the left side background */
-.register-card {
-  position: relative;
-  z-index: 1;
-}
+/* register page */
 .register-container {
     display: flex;
     height: 100vh;
 }
-  
+
 .register-left {
     width: 50%;
+    height: 100vh;
     background: url('/static/pattern.png') center center / cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    background-color: #f7f7f7;
 }
-  
+
 .register-left::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.568); /* Overlay */
+    background-color: rgba(0, 0, 0, 0.568);
     z-index: 0;
 }
   
+/* Design on top of pattern */
 .branding-texts {
     position: relative;
     z-index: 1;
@@ -180,7 +186,7 @@
     color: white;
     padding: 20px;
 }
-  
+
 .branding-texts h1 {
     font-size: 5rem;
     margin-bottom: 20px;
@@ -192,7 +198,7 @@
     margin: auto;
     font-weight: 50px;
 }
-  
+
 .register-right {
     width: 50%;
     display: flex;
@@ -200,8 +206,11 @@
     align-items: center;
     background-color: #f7f7f7;
 }
-  
+
+/* register fill out section */
 .register-card {
+    position: relative;
+    z-index: 1;
     background-color: white;
     padding: 40px;
     border-radius: 12px;
@@ -220,6 +229,7 @@
   
 .register-card h2 {
     margin-bottom: 20px;
+    color: rgba(255, 159, 64, 1)
 }
   
 .register-card input {
@@ -248,22 +258,7 @@
     background-color: rgb(216, 119, 21);
 }  
 
-.checkbox-container {
-    margin-left: 0.25rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
-    justify-content: flex-start;
-    text-align: left;
-}
-  
-.checkbox-container label {
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-    color: #555;
-}
-
+/* link redirect to login */
 .login-text {
     margin-top: 10px;
     font-size: 0.9rem !important;
@@ -281,7 +276,7 @@
     text-decoration: underline;
 }
   
-/* General navbar style */
+/* navigation bar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -293,14 +288,12 @@
     top: 0;
     z-index: 1000;
 }
-  
-/* Logo */
+
 .logo {
     font-size: 1.4rem;
     font-weight: bold;
 }
   
-/* Center nav links */
 .nav-center {
     display: flex;
     gap: 2rem;
@@ -315,12 +308,10 @@
     transition: color 0.3s ease;
 }
   
-/* Active tab */
-  .nav-link.active {
-    color: #28a745; /* Green */
+.nav-link.active {
+    color: #28a745;
 }
   
-/* Underline on hover */
 .nav-link::after {
     content: "";
     position: absolute;
@@ -340,7 +331,7 @@
     color: #28a745;
 }
   
-/* Dropdown styles */
+/* logout dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -390,7 +381,7 @@
     display: block;
 }
   
-
+/* card containing charts */
 .chart-card {
     background-color: white;
     border-radius: 1rem;
@@ -409,7 +400,7 @@ canvas {
     height: auto !important;
 }
   
-
+/* info on dashboard */
 .balance-info {
     margin-bottom: 1rem;
     text-align: center;
@@ -424,21 +415,20 @@ canvas {
 .month-summary {
     font-size: 1rem;
     color: #666;
-    /* margin-top: 0.25rem; */
 }
 
 .chart-title {
     font-size: 1.4rem;
-    /* margin-bottom: 1rem; */
     font-weight: 500;
     color: #333;
 }
 
+/* link on dashboard redirecting to analysis */
 .card-footer-link {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 159, 64, 0.5);
+    background-color: rgba(8, 145, 8, 0.59);
     color: rgb(73, 73, 73);
     padding: 1rem 1.25rem;
     border-bottom-left-radius: 1rem;
@@ -447,23 +437,24 @@ canvas {
     font-weight: 500;
     font-size: 0.95rem;
     transition: background-color 0.2s;
-    margin-top: 2rem;   /* Push footer below chart */
-    margin-left: -2rem; /* Remove left padding from .chart-card */
+    margin-top: 2rem;   
+    margin-left: -2rem; 
     margin-right: -2rem;
 }
 
 .card-footer-link .arrow {
-    font-size: 1.75rem; /* ← increase this for a bigger arrow */
+    font-size: 1.75rem; 
     margin-left: 0.5rem;
     line-height: 1;
 }  
 
 .card-footer-link:hover {
-    background-color: rgba(255, 159, 64, 1); /* slightly darker on hover */
+    background-color: green; 
     cursor: pointer;
     color: white;
 }
 
+/* analysis page */
 .analysis-tab {
     padding: 2rem;
     display: flex;
@@ -471,22 +462,27 @@ canvas {
     gap: 3rem;
 }
   
+/* charts */
 .chart-section {
     position: relative;
     background-color: white;
     border-radius: 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    padding-top: 2.5rem; /* room for the tab switcher */
+    padding-top: 2.5rem;
     margin: 2rem auto;
     overflow: visible;
     width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
   
 .chart-header {
     text-align: center;
-    font-size: 2rem; /* Adjust size as needed */
+    font-size: 2rem; 
     font-weight: 600;
-    margin-bottom: 1rem; /* Space below the heading */
+    margin-bottom: 1rem; 
 }
   
 .chart-header h2 {
@@ -494,6 +490,7 @@ canvas {
     font-weight: 600;
 }
   
+/* tabs between charts */
 .chart-tabs {
     position: absolute;
     top: 0;
@@ -539,6 +536,16 @@ canvas {
     max-width: 40%;
 }
 
+/* text informing on no transactions */
+.categories_text, .farming_text {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    padding: 50px;
+    color: rgba(255, 159, 64, 1);
+}
+
+/* transactions page */
 .page-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -547,6 +554,7 @@ canvas {
     color: rgba(255, 159, 64, 1);
 }  
 
+/* displaying all transactions */
 .transactions-container {
     display: flex;
     flex-direction: column;
@@ -555,6 +563,7 @@ canvas {
     gap: 1rem;
 }
   
+/* display of each transaction */
 .transaction-card {
     display: grid;
     grid-template-columns: 100px 100px 1fr 100px 120px auto;
@@ -591,7 +600,6 @@ canvas {
     transform: translateY(-50%);
     z-index: 1;
 }
-  
   
 .transaction-card .type {
     font-weight: 600;
@@ -635,7 +643,7 @@ canvas {
     cursor: pointer;
 }
   
-  /* Popup Styles */
+/* delete confirm popup */
 .popup {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -676,57 +684,7 @@ canvas {
     cursor: pointer;
 }
 
-.sort-menu-wrapper {
-    position: fixed;
-    top: 5rem;
-    padding-left: 1rem;
-    z-index: 100;
-}
-  
-.options-btn {
-    font-size: 1rem;
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #333;
-    transition: background 0.2s ease;
-}
-  
-.options-btn:hover {
-    background-color: #e0e0e0;
-}
-  
-  
-.sort-panel {
-    margin-top: 0.5rem;
-    background: white;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 180px;
-}
-  
-.sort-panel label {
-    display: block;
-    margin-top: 0.5rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-  
-.sort-panel select,
-.sort-panel button {
-    width: 100%;
-    margin-top: 0.3rem;
-    padding: 0.4rem;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-  
+/* add transactions button */
 .add-transaction-container {
     position: fixed;
     top: 5rem;
@@ -783,13 +741,15 @@ canvas {
     display: inline;
 }
 
+/* add transactions page */
 .add-transaction-page {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 3rem 1rem;
 }
-  
+
+/* add transactions fill out form */
 .add-transaction-card {
     background: white;
     border-radius: 1rem;
@@ -799,6 +759,7 @@ canvas {
     max-width: 650px;
 }
 
+/* environmental impacts section */
 #more-details {
     max-height: 0;
     overflow: hidden;
@@ -826,7 +787,6 @@ canvas {
 
 .subcard input,
 .subcard select {
-    /* display: block; */
     width: 100%;
     margin-top: 10px;
 }
@@ -843,7 +803,6 @@ canvas {
     display:flex;
     align-items: center;
     text-align: left;
-    /* margin-top: 8px; */
     margin-left: 25px;
     gap: 8px;
 }
@@ -851,7 +810,7 @@ canvas {
 .sustainability .checkbox-container input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: #4CAF50; /* optional: makes it match your theme */
+    accent-color: #4CAF50;
 }
 
 .sustainability .checkbox-container span {
